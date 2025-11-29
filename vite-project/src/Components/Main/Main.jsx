@@ -8,7 +8,7 @@ import EditAvatar from './Components/Popup/Components/EditAvatar/EditAvatar.jsx'
 import Popup from './Components/Popup/Popup.jsx';
 import ImagePopup from './Components/Popup/Components/ImagePopup/ImagePopup.jsx';
 
-const cards = [
+const initialCards = [
   {
     isLiked: false,
     _id: '5d1f0611d321eb4bdcd707dd',
@@ -28,11 +28,16 @@ const cards = [
 ];
 
 export default function Main() {
+    const [cards, setCards] = useState(initialCards);
     const [popup, setPopup] = useState(null);
+    
 
     const newCardPopup = { title: "New card", children: <NewCard /> };
     const editProfilePopup = { title: "Edit profile", children: <EditProfile /> };
-    const editAvatarPopup = { title: "Change profile picture", children: <EditAvatar /> };
+    const editAvatarPopup = { 
+  title: "Alterar a foto do perfil", 
+  children: <EditAvatar /> 
+};
 
     function handleOpenPopup(popup) {
     setPopup(popup);
@@ -48,6 +53,18 @@ export default function Main() {
     children: <ImagePopup src={cardData.link} alt={cardData.name} /> 
   };
   setPopup(imagePopupWithData);
+  }
+  
+  function handleLike(cardId) {
+  setCards(cards.map(card => 
+    card._id === cardId 
+      ? { ...card, isLiked: !card.isLiked }
+      : card
+  ));
+}
+
+function handleDelete(cardId) {
+  setCards(cards.filter(card => card._id !== cardId));
 }
 
     return (
@@ -64,6 +81,7 @@ export default function Main() {
                 src={editButtonImage}
                 alt="Editar"
                 className="content__profile-avatar-edit"
+                onClick={() => handleOpenPopup(editAvatarPopup)}
               />
             </div>
           </div>
@@ -84,18 +102,20 @@ export default function Main() {
             onClick={() => setPopup(newCardPopup)}
           ></button>
         </section>
-        <section className="elements">
-  <ul className="elements__list">
-    {cards.map((card) => (
-      <Card 
-        key={card._id} 
-        card={card} 
-        onCardClick={handleCardClick}
-      />
-    ))}
-  </ul>
-</section>
-      {popup && (
+        <section className="cards">
+            <ul className="elements__list">
+                {cards.map((card) => (
+                    <Card 
+                    key={card._id} 
+                    card={card} 
+                    onCardClick={handleCardClick}
+                    onLike={handleLike}
+                    onDelete={handleDelete}
+                    />
+                ))}
+            </ul>
+        </section>
+    {popup && (
     <Popup 
         onClose={handleClosePopup}
         title={popup.title}>
