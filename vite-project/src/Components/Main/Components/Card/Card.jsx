@@ -12,7 +12,7 @@ export default function Card(props) {
 
   return (
     <li className="card">
-      <img className="card__image" src={link} alt={name} />
+      <img className="card__image" src={link} alt={name} onClick={() => props.onCardClick(props.card)}/>
       <button 
         onClick={handleDeleteClick}
         aria-label="Delete card" 
