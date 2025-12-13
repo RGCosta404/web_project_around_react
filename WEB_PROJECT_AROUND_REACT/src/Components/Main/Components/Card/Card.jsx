@@ -1,19 +1,19 @@
 export default function Card(props) {
   const { name, link, isLiked, _id } = props.card;
-  const { onLike, onDelete } = props;
+  const { onImageClick, onCardDelete, onCardLike } = props;
   
-  function handleLikeClick() {
-    onLike(_id);
-  }
+ function handleLikeClick() {
+    onCardLike(props.card);
+}
 
   function handleDeleteClick() {
-    onDelete(_id);
+    onCardDelete(props.card);
   }
 
   return (
-    <li className="card">
-      <img className="card__image" src={link} alt={name} onClick={() => props.onCardClick(props.card)}/>
-      <button 
+    <div className="card">
+      <img className="card__image" src={link} alt={name} onClick={() => onImageClick(props.card)} />
+      <button
         onClick={handleDeleteClick}
         aria-label="Delete card" 
         className="card__delete-button" 
@@ -27,6 +27,6 @@ export default function Card(props) {
           onClick={handleLikeClick} 
         />
       </div>
-    </li>
+    </div>
   );
 }

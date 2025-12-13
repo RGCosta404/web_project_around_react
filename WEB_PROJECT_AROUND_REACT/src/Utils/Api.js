@@ -1,133 +1,91 @@
-class Api {
+export default class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
+    this._handleResponse = this._handleResponse.bind(this);
+  }
+
+  _handleResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+      method: 'GET',
+    }).then(this._handleResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then((data) => {
-        return data;
-      });
+      method: 'GET',
+    }).then(this._handleResponse);
   }
 
-  updateProfile(name, about) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        about: about,
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
-  }
+  setUserInfo(userData) {
+  return fetch(`${this._baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: this._headers,
+    body: JSON.stringify({
+      name: userData.name,
+      about: userData.about,
+    }),
+  }).then(this._handleResponse);
+}
 
-  addCard(name, link) {
+  addCard(cardData) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name: cardData.name,
+        link: cardData.link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._handleResponse);
   }
 
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._handleResponse);
   }
 
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._handleResponse);
   }
 
   unlikeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._handleResponse);
   }
 
-  updateAvatar(avatar) {
+  setUserAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        ...this._headers,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: avatar,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._handleResponse);
   }
 }
 
 const api = new Api({
   baseUrl: 'https://around-api.pt-br.tripleten-services.com/v1',
   headers: {
-    authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmVmZmE5YjQwNzBkNjAwMzQ2YzY4NTAiLCJpYXQiOjE2NTk4NzU5OTUsImV4cCI6MTY2MDQ4MDc5NX0.uOp8YhByOXa3gOaKsaQCzGGmkw7rOFOCBUrbJbJiKx4',
+    authorization: "ea230205-bcfb-4ccb-940b-03d9c5173331",
     'Content-Type': 'application/json'
   }
 });
 
-export default api;
+export { api };
