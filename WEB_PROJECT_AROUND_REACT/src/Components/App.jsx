@@ -3,9 +3,8 @@ import '../index.css'
 import Main from './Main/Main';
 import Footer from './Footer/Footer';
 import { useState, useEffect, useCallback } from 'react';
-import {api} from '../Utils/Api';
-import {CurrentUserContext} from '../Contexts/CurrentUserContext';
-import Popup from './Main/Components/Popup/Popup.jsx';
+import {api} from '../utils/Api';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});

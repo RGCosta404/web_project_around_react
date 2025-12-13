@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import {api} from '../../Utils/Api';
-import Card from './Components/Card/Card.jsx';
-import NewCard from './Components/Popup/Components/NewCard/NewCard.jsx';
-import EditProfile from './Components/Popup/Components/EditProfile/EditProfile.jsx';
-import EditAvatar from './Components/Popup/Components/EditAvatar/EditAvatar.jsx';
-import Popup from './Components/Popup/Popup.jsx';
-import ImagePopup from './Components/Popup/Components/ImagePopup/ImagePopup.jsx';
+import Card from './components/Card/Card.jsx';
+import NewCard from './components/Popup/components/NewCard/NewCard.jsx';
+import EditProfile from './components/Popup/components/EditProfile/EditProfile.jsx';
+import EditAvatar from './components/Popup/components/EditAvatar/EditAvatar.jsx';
+import Popup from './components/Popup/Popup.jsx';
+import ImagePopup from './components/Popup/components/ImagePopup/ImagePopup.jsx';
 import { useContext } from 'react';
-import {CurrentUserContext} from '../../Contexts/CurrentUserContext';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext.js';
 
 export default function Main({
   cards, onCardLike, onCardDelete, popup, onOpenPopup, onClosePopup, onAddPlaceSubmit
