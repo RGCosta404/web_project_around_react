@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Card from './components/Card/Card.jsx';
-import NewCard from './components/Popup/components/NewCard/NewCard.jsx';
-import EditProfile from './components/Popup/components/EditProfile/EditProfile.jsx';
-import EditAvatar from './components/Popup/components/EditAvatar/EditAvatar.jsx';
+import NewCard from './components/Popup/Components/NewCard/NewCard.jsx';
+import EditProfile from './components/Popup/Components/EditProfile/EditProfile.jsx';
+import EditAvatar from './components/Popup/Components/EditAvatar/EditAvatar.jsx';
 import Popup from './components/Popup/Popup.jsx';
-import ImagePopup from './components/Popup/components/ImagePopup/ImagePopup.jsx';
+import ImagePopup from './components/Popup/Components/ImagePopup/ImagePopup.jsx';
 import { useContext } from 'react';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext.js';
 
